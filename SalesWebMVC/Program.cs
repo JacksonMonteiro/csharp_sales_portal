@@ -12,6 +12,8 @@ namespace SalesWebMVC {
             builder.Services.AddDbContext<SalesWebMVCContext>(options =>
             options.UseMySQL(builder.Configuration.GetConnectionString("SalesWebMVCContext"), builder => builder.MigrationsAssembly("SalesWebMVC")));
 
+            builder.Services.AddScoped<SeedingService>();
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
@@ -23,6 +25,10 @@ namespace SalesWebMVC {
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+
+            // Seeding Database
+            app.Services.CreateScope().ServiceProvider.GetRequiredService<SeedingService>().Seed();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
