@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SalesWebMVC.Models;
 using SalesWebMVC.Services;
 
 namespace SalesWebMVC.Controllers {
@@ -12,6 +13,18 @@ namespace SalesWebMVC.Controllers {
         public IActionResult Index() {
             var list = _sellerService.FindAll();
             return View(list);
+        }
+
+        public IActionResult Create() {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Seller seller) {
+            seller.Department = new Department(1, "Computers");
+            _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
