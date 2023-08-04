@@ -22,7 +22,6 @@ namespace SalesWebMVC.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller) {
-            seller.Department = new Department(1, "Computers");
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
