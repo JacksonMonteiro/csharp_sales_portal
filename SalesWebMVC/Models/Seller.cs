@@ -25,7 +25,8 @@ namespace SalesWebMVC.Models {
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
-        public Department Department { get; set; }
+
+        public Department? Department { get; set; }
         public int DepartmentId { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
 
@@ -50,7 +51,6 @@ namespace SalesWebMVC.Models {
 
         public double TotalSales(DateTime initial, DateTime final) {
             return Sales.Where(sr => sr.Date >= initial && sr.Date <= final).Sum(sr => sr.Amount);
-            ;
         }
     }
 }
